@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html ng-app="MsgApp">
+    <head>
+        <meta charset="utf-8">
+        <title>Assignment-1</title>
+        <script type="text/javascript" src="dist/angular.min.js"></script>
+        <script type="text/javascript" src="app.js"></script>
+    </head>
+    <body>
+        <h1>Filters</h1>
+        <div ng-controller="MsgController">
+            <p><b>Original Message :</b> {{name}} has a message for you : {{sayMessage()}}</p>
+            <p><b>Love Message :</b> {{name}} has a message for you : {{sayLoveMessage()}}</p>
+            <p><b>Truth Message :</b> {{name}} has a message for you : {{sayLoveMessage() | truth : 'healthy' : 'cookie'}}</p>
+            <p><b>Big Truth :</b> 
+                {{name}} has a message for you : {{sayLoveMessage() | truth : 'healthy' : 'cookie' | uppercase}}
+            </p>
+            <button type="button" ng-click="feedYeshwanth()">Feed</button>
+            <p>cookie cost : {{cookieCost | currency : "&#8377"}}</p>
+            <p>{{stateOfBeing}}</p>
+        </div>
+    </body>
+</html>

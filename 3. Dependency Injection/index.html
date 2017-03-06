@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html ng-app="DIapp">
+    <head>
+        <meta charset="utf-8">
+        <title>My first Angular app</title>
+        <script type="text/javascript" src="dist/angular.min.js"></script>
+        <script type="text/javascript" src="app.js"></script>
+    </head>
+    <body>
+        <h1>My first Angular App</h1>
+        <div ng-controller="DIController">
+            Your Name : <input type="text" ng-model="name" ng-blur="upper()"/><br>
+        </div>
+    </body>
+</html>
