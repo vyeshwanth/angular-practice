@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="ShoppingListApp">
+<html ng-app="ScopeInheritanceApp">
     <head>
         <meta charset="utf-8">
         <title>Assignment-1</title>
@@ -7,27 +7,9 @@
         <script type="text/javascript" src="app.js"></script>
     </head>
     <body>
-        <h1>Ng Repeat</h1>
-        <div ng-controller="ShoppingListController">
-            <h1>Shoping List 1</h1>
-            <ul>
-                <li ng-repeat="item in shoppingList1">{{item}}</li>
-            </ul>
-            <h1>Shoping List 2</h1>
-            <input type="text" ng-model="shoppingList2[0].quantity"/>
-            <ul>
-                <li ng-repeat="item in shoppingList2">{{$index + 1}}. {{item.quantity}} piece(s) of {{item.name}}</li>
-            </ul>
-            <input type="text" placeholder="Item Name" ng-model="newItemName"/>
-            <input type="number" placeholder="Item Name" ng-model="newItemQuantity"/>
-            <button ng-click="addToList()">Add new Item</button><br>
-            <h1>Filter the Shoping List 1</h1>
-            <input type="text" ng-model="search.$" placeholder="search whole list"/>
-            <input type="text" ng-model="search.name" placeholder="search by item name"/>
-            <input type="text" ng-model="search.quantity" placeholder="search by item quantity"/>
-            <ul>
-                <li ng-repeat="item in shoppingList2 | filter : search ">{{$index + 1}}. {{item.quantity}} piece(s) of {{item.name}}</li>
-            </ul>
-        </div>
+        <h1>Scope Inheritance</h1>
+            <div ng-controller="ParentController">
+            <div ng-controller="ChildController"></div>
+            </div>
     </body>
 </html>
