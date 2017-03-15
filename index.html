@@ -1,37 +1,25 @@
 <!DOCTYPE html>
 <html ng-app="ShoppingListApp">
-    <head>
-        <meta charset="utf-8">
-        <title>Factory</title>
-        <script type="text/javascript" src="dist/angular.min.js"></script>
-        <script type="text/javascript" src="app.js"></script>
-    </head>
-    <body>
-        <h1>Factory</h1>
-        <!-- Shoppling List 1-->
-            <div ng-controller="CartController as cart1">
-                <input type="text" placeholder="Enter Item Name" ng-model="cart1.itemName"/>
-                <input type="number" placeholder="Enter Item Quantity" ng-model="cart1.itemQuantity"/>
-                <button ng-click="cart1.addItem()">Add Item To List</button>
-                <ol>
-                    <li ng-repeat="item in cart1.items">
-                        {{item.quantity}} units of {{item.name}}
-                        <button ng-click="cart1.removeItem($index)">Remove Item</button>
-                    </li>
-                </ol>
-            </div>
-            <!-- Shopping List 2-->
-            <div ng-controller="CartController2 as cart2">
-                <input type="text" placeholder="Enter Item Name" ng-model="cart2.itemName"/>
-                <input type="number" placeholder="Enter Item Quantity" ng-model="cart2.itemQuantity"/>
-                <button ng-click="cart2.addItem()">Add Item To List</button>
-                <div id="error">{{cart2.errorMessage}}</div>
-                <ol>
-                    <li ng-repeat="item in cart2.items">
-                        {{item.quantity}} units of {{item.name}}
-                        <button ng-click="cart2.removeItem($index)">Remove Item</button>
-                    </li>
-                </ol>
-            </div>
-    </body>
+<head>
+    <meta charset="utf-8">
+    <title>Factory</title>
+    <script type="text/javascript" src="dist/angular.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+</head>
+<body>
+<h1>Factory</h1>
+<!-- Shoppling List 1-->
+<div ng-controller="CartController as cart1">
+    <input type="text" placeholder="Enter Item Name" ng-model="cart1.itemName"/>
+    <input type="number" placeholder="Enter Item Quantity" ng-model="cart1.itemQuantity"/>
+    <button ng-click="cart1.addItem()">Add Item To List</button>
+    <ol>
+        <li ng-repeat="item in cart1.items">
+            {{item.quantity}} units of {{item.name}}
+            <button ng-click="cart1.removeItem($index)">Remove Item</button>
+        </li>
+    </ol>
+    <div id="error" style="color: red;">Error : {{cart1.errorMessage}}</div>
+</div>
+</body>
 </html>
