@@ -1,25 +1,19 @@
 <!DOCTYPE html>
-<html ng-app="ShoppingListApp">
+<html ng-app="MenuCategoriesApp">
 <head>
     <meta charset="utf-8">
-    <title>Factory</title>
+    <title>Menu Categories</title>
     <script type="text/javascript" src="dist/angular.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
 </head>
 <body>
-<h1>Factory</h1>
-<!-- Shoppling List 1-->
-<div ng-controller="CartController as cart1">
-    <input type="text" placeholder="Enter Item Name" ng-model="cart1.itemName"/>
-    <input type="number" placeholder="Enter Item Quantity" ng-model="cart1.itemQuantity"/>
-    <button ng-click="cart1.addItem()">Add Item To List</button>
+<h1>Menu categories</h1>
+<div ng-controller="MenuCategoryController as menu">
     <ol>
-        <li ng-repeat="item in cart1.items">
-            {{item.quantity}} units of {{item.name}}
-            <button ng-click="cart1.removeItem($index)">Remove Item</button>
+        <li ng-repeat="category in menu.categories">
+            (<a href="" ng-click="menu.getMenuItems(category.short_name)">{{category.short_name}}</a>) units of {{category.name}}
         </li>
     </ol>
-    <div id="error" style="color: red;">Error : {{cart1.errorMessage}}</div>
 </div>
 </body>
 </html>

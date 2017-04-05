@@ -1,86 +1,61 @@
 (function(){
 
-'use strict';
+angular.module('MenuCategoriesApp', [])
+.controller('MenuCategoryController', MenuCategoryController)
+.service('MenuCategoriesService', MenuCategoriesService)
+.constant('API_BASE_PATH', 'http://davids-restaurant.herokuapp.com/');
 
-angular.module('ShoppingListApp',[])
-.controller('CartController', CartController)
-.provider('CartService', CartServiceProvider)
-.config(Config);
+MenuCategoryController.$inject = ['MenuCategoriesService'];
 
-Config.$inject = ['CartServiceProvider'];
-
-function Config(CartServiceProvider)
+function MenuCategoryController(MenuCategoriesService)
 {
-    CartServiceProvider.defaults.maxItems = 2;
-}
+    var menu = this;
+    var promise = MenuCategoriesService.getMenuCategories();
 
-CartController.$inject = ['CartService'];
+    promise.then(function(response){
+        menu.categories = response.data;
+    }).catch(function(error){
+        console.log('Something Went Wrong');
+    });
 
-function CartController(CartService)
-{
-    var cart1 = this;
-    cart1.itemName = '';
-    cart1.itemQuantity = '';
-    cart1.addItem = function(){
-        try
-        {
-            CartService.addItem(cart1.itemName, cart1.itemQuantity);
-        }
-        catch(error)
-        {
-            cart1.errorMessage = error.message;
-        }
-        cart1.itemName = '';
-        cart1.itemQuantity = '';
-    };
-    cart1.items = CartService.getItems();
-    cart1.removeItem = function($index){
-        CartService.removeItem($index);
+    menu.getMenuItems = function(short_name){
+        console.log('inside getMenuItems');
+        var promise = MenuCategoriesService.getMenuItems(short_name);
+
+        promise.then(function(response){
+            console.log(response.data);
+        }).catch(function(error){
+            console.log('Something Went Wrong');
+        })
     }
 }
 
-function CartService(maxItems)
+MenuCategoriesService.$inject = ['$http', 'API_BASE_PATH'];
+
+function MenuCategoriesService($http, API_BASE_PATH)
 {
     var service = this;
-    var items = [];
 
-    service.addItem = function(itemName, itemQuantity){
-      var item = {
-           name : itemName,
-           quantity : itemQuantity
-       };
-       if( (maxItems === undefined) || ( (maxItems !== undefined) && (items.length < maxItems) ) )
-       {
-           items.push(item);
-       }
-       else
-       {
-           throw new Error("Max Items Limit ("+ maxItems + ") reached");
-       }
+    this.getMenuCategories = function(){
+        var response = $http({
+            method : 'GET',
+            url : API_BASE_PATH + 'categories.json',
+        });
+
+        return response;
     }
 
-    service.getItems = function(){
-        return items;
-    }
+    this.getMenuItems = function(short_name){
+        console.log('request being sent');
+        var response = $http({
+            method : 'GET',
+            url : API_BASE_PATH + 'menu_items.json',
+            params : {
+                category : short_name
+            }
+        });
 
-    service.removeItem = function(itemIndex)
-    {
-        items.splice(itemIndex, 1);
+        return response;
     }
 }
-
-function CartServiceProvider()
-{
-    var provider = this;
-    
-    provider.defaults = {
-        maxItems : 10
-    };
-    
-    provider.$get = function(){
-        var newCartService = new CartService(provider.defaults.maxItems);
-        return newCartService;
-    };
-}
-
-})();
+})()
